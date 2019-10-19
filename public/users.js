@@ -34,13 +34,12 @@ async function getQRCode(){
     document.getElementById('orgname').value  = "";
     document.getElementById('eventPicUrl').value  = "";
     document.getElementById('datepicker').value  = "";
-    const api_url = `qrcode/${url}`;
+    const api_url = `users/qrcode/${url}`;
     const response = await fetch(api_url);
     const json_url = await response.json();
     const qrcode = await json_url.url;
-    const data = await { name , qrcode, date};
-    console.log(data);
-    const options = await {
+    const data =  { name , qrcode, date};
+    const options =  {
         method : "POST",
         
         headers : {
@@ -49,14 +48,14 @@ async function getQRCode(){
         body : JSON.stringify(data)
     };
     
-    const final_response = await fetch('/api',options);     //sends a post request, post can also send a response
+    const final_response = await fetch('/users/api',options);     //sends a post request, post can also send a response
     const json = await final_response.json();         //retrives the response from post
     console.log(json);              //console log it out 
 }
 
 async function getData(){
     
-   const response = await fetch('/api');
+   const response = await fetch('/users/api');
    const data = await response.json();
    console.log(data[0].name);
 
