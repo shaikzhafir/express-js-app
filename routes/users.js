@@ -3,19 +3,29 @@ var unirest = require("unirest");
 const router = express.Router();
 const mongoose = require('mongoose');
 
-let orgModel = require('../lib/User.js');
+let orgModel = require('../lib/Details.js');
 
 require('dotenv').config();
 
-const DB_CONNECTOR = process.env.DB_CONNECTOR 
 
-mongoose.connect(DB_CONNECTOR, {useNewUrlParser: true});
-var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error'));
-db.once('open', function() {
-    console.log("connected!");
-  });
+router.get('/', (req,res) => {
+    
+    if (!req.session.user){
+        return res.status(401).send();
+    }
+    else {
+    res.render('index');
+    }
+})
 
+router.get('/hello' ,(req,res) => {
+    if (!req.session.user){
+        return res.status(401).send();
+    }
+    else {
+        res.render('hello');
+    }
+})
 
 //reading from database
 router.get('/api', (req,res) => {
