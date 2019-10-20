@@ -1,3 +1,4 @@
+const path = require('path');
 const express = require('express');
 const session = require('express-session');
 const fetch = require('node-fetch');
@@ -19,8 +20,8 @@ db.once('open', function() {
   });
 
 app.listen(3000, () => console.log('listening at 3000'));
-app.use(express.static('public'));
 app.use(express.json({limit : '1mb'}));
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
     secret : SESSION_SECRET,
     resave: false,

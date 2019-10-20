@@ -23,7 +23,7 @@ router.post('/login', (req,res)=> {
             return res.status(500).send();
         }
         if(!user){
-            return res.status(404).send();
+            return res.json()
         }
         else {
             //registers the session with user 

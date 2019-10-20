@@ -11,6 +11,10 @@ require('dotenv').config();
 router.get('/', (req,res) => {
     
     if (!req.session.user){
+        //return error + the error message for the page
+        res.render('error',{
+            error : "401 user not found"
+        });
         return res.status(401).send();
     }
     else {
@@ -54,13 +58,12 @@ router.get('/api', (req,res) => {
 //use of post, with two params, request and response
 router.post('/api',(req,res) => {
     const data = req.body;
-    const timestamp = Date.now();
-    data.timestamp = timestamp
-    console.log(data.name);
     // initialise a db, put in the data manually by connecting to req.body
     var newModel = new orgModel();
+    
     newModel.name = data.name;
     newModel.qrcode = data.qrcode;
+    newModel.imageUrl = data.imageUrl;
     newModel.date = data.date;
     newModel.save(function(err, savedObject){
         if (err){
@@ -115,5 +118,18 @@ req.end(function (res) {
 
 })
 
+
+router.get('/logout', (req,res,next) => {
+    if (req.session){
+        req.session.destroy((err)=>{
+            if (err) {
+                return next(err);
+            }
+            else {
+                return res.json(200);
+            }
+        })
+    }
+})
 
 module.exports = router;
