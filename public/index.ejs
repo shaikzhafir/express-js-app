@@ -31,10 +31,12 @@
        Image URL poster for the event <input type="text" id="imageUrl"><br>
        Date : <input type="text" id="datepicker"><br>
        Event tags: 
-       <label class="checkbox-inline"><input type="checkbox" value="">Tech</label>
-       <label class="checkbox-inline"><input type="checkbox" value="">Sports</label>
-       <label class="checkbox-inline"><input type="checkbox" value="">Recreation</label>
-       <label class="checkbox-inline"><input type="checkbox" value="">Educational</label><br>
+       <select id="select1"> 
+          <option value="Tech">Tech</option> 
+          <option value="Sports">Sports</option> 
+          <option value="Recreational">Recreational</option> 
+          <option value="Education">Education</option>
+      </select> <br>
        <button onClick="getQRCode()">Add Event</button>
     </div>   
 

@@ -36,9 +36,10 @@ router.get('/hello' ,(req,res) => {
 })
 
 //reading from database
-router.get('/api', (req,res) => {
-    
-    orgModel.find({}, function(err, foundData) {
+router.get('/api/:eventType', (req,res) => {
+    const type = req.params.eventType;
+    console.log(type);
+    orgModel.find({type : type}, function(err, foundData) {
         if (err){
             console.log(err);
             res.status(500).send();
@@ -61,7 +62,6 @@ router.get('/api', (req,res) => {
 });
 //use of post, with two params, request and response
 router.post('/api',(req,res) => {
-    console.log("here");
     const data = req.body;
     // initialise a db, put in the data manually by connecting to req.body
     var newModel = new orgModel();
@@ -70,13 +70,14 @@ router.post('/api',(req,res) => {
     newModel.qrcode = data.qrcode;
     newModel.imageUrl = data.imageUrl;
     newModel.date = data.date;
+    newModel.type = data.eventType;
     newModel.save(function(err, savedObject){
         if (err){
             console.log(err);
             res.status(500).send();
         }
         else {
-            res.send(savedObject);
+            return res.json(200);
         }
     });
     
@@ -92,7 +93,6 @@ router.post('/api',(req,res) => {
 router.get('/qrcode/:url', async (request,response) => {
 const API_KEY = process.env.API_KEY;
 const random_url = request.params.url;
-console.log('inside qrcode');
 var req = unirest("GET", "https://pierre2106j-qrcode.p.rapidapi.com/api");
 
 req.query({

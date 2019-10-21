@@ -15,54 +15,30 @@
 <body>
         <%- include('./includes/navigation.ejs') %>
 
-    <h1>henlo</h1>
-    <button onClick="getData()">get qrcode </button>
+    
+    <div class="container">
+        <p>Check the boxes to pick the events you are interested in!</p>
+        Event types:
+          
+        
+        <select id="select1"> 
+                <option value="Tech">Tech</option> 
+                <option value="Sports">Sports</option> 
+                <option value="Recreational">Recreational</option> 
+                <option value="Education">Education</option>
+            </select>
+       
+            <button onClick="getData()">Generate events!</button>
+    </div>
+    
     <div id="mainContent">
 
 
         </div>
-        <script>
+        <script src="../users.js">
         
-var main = document.querySelector('#mainContent');
 
 
-async function getData(){
-    
-    const response = await fetch('/users/api');
-    const data = await response.json();
-    console.log(data);
- 
-    for ( i = 0 ; i < data.length ; i++){
-         var div = document.createElement('div');
-         var name = document.createElement('h1');
-         var qrImage = document.createElement('img');
-         var image = document.createElement('img');
-         var date = document.createElement('p');
-         var qrcodeUrl = data[i].qrcode ;
-         var imageUrl = data[i].imageUrl ;
-         var eventName = data[i].name;
-         var eventDate = data[i].date;
-         div.setAttribute('class','container');
-         date.textContent = eventDate;
-         qrImage.setAttribute('src',qrcodeUrl);
-         qrImage.setAttribute('width','300');
-         qrImage.setAttribute('height','300');
-         image.setAttribute('src',imageUrl);
-         name.textContent = eventName;
-         div.appendChild(name);
-         div.appendChild(image);
-         div.appendChild(qrImage);
-         div.appendChild(date);
-         main.appendChild(div);
-         
-    }
- }
-
-//jquery functions
-
-$( function() {
-    $( "#datepicker" ).datepicker();
-} );
 
         
         
