@@ -18,7 +18,9 @@ router.get('/', (req,res) => {
         return res.status(401).send();
     }
     else {
-    res.render('index');
+    res.render('index',{
+        path : '/users'
+    });
     }
 })
 
@@ -27,7 +29,9 @@ router.get('/hello' ,(req,res) => {
         return res.status(401).send();
     }
     else {
-        res.render('hello');
+        res.render('hello',{
+            path : '/users/hello'
+        });
     }
 })
 
@@ -57,6 +61,7 @@ router.get('/api', (req,res) => {
 });
 //use of post, with two params, request and response
 router.post('/api',(req,res) => {
+    console.log("here");
     const data = req.body;
     // initialise a db, put in the data manually by connecting to req.body
     var newModel = new orgModel();
@@ -87,7 +92,7 @@ router.post('/api',(req,res) => {
 router.get('/qrcode/:url', async (request,response) => {
 const API_KEY = process.env.API_KEY;
 const random_url = request.params.url;
-
+console.log('inside qrcode');
 var req = unirest("GET", "https://pierre2106j-qrcode.p.rapidapi.com/api");
 
 req.query({
@@ -106,11 +111,14 @@ req.headers({
 
 
 req.end(function (res) {
-	if (res.error) throw new Error(res.error);
+	if (res.error) {throw new Error(res.error);}
     //console.log(res.body);
-    response.json({
+    else{
+    console.log('qr code created');
+        response.json({
         url : res.body
     })
+    }   
     
 })
 

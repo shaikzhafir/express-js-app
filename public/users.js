@@ -28,6 +28,8 @@ async function getQRCode(){
     const final_response = await fetch('/users/api',options);     //sends a post request, post can also send a response
     const json = await final_response.json();         //retrives the response from post
     if (json === 200){
+        var successMessage = '<div class="alert alert-success"><strong>Success!</strong> You have successfully added your event!</div>'
+        main.appendChild(successMessage);
         //append you have added your event successfully!
     }             
 }

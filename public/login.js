@@ -35,6 +35,7 @@ async function loginUser(){
     const json = await response.json();
     if (json === 200){
         console.log('success!' + response);
-        window.location.href = 'http://localhost:3000/users';
+       // window.location.href = 'https://bobross96-express-js-app.glitch.me/users' ;
+        window.location.href = 'http://localhost:3000/users' ;
     }
 }
